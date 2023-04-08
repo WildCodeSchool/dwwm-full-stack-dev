@@ -1,0 +1,32 @@
+name: Bdd MYSQL Quest 5
+
+on:
+    push:
+        paths:
+          - "src/bdd/mysql/quest-05/**"
+        #   - "src/bdd/mysql/quest-05/*.sql"
+
+jobs:
+    test:
+        runs-on: ubuntu-latest
+
+        env:
+            resource-directory: ./Resource/bdd/mysql
+            working-directory: ./src/bdd/mysql/quest-05
+        services:
+            mysql:
+                image: mysql:8.0.27
+                env:
+                    MYSQL_DATABASE: wild_db_quest
+                    MYSQL_ROOT_PASSWORD: db_password
+                ports:
+                    - 3306:3306
+                options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
+        steps:
+            -   name: Checkout
+                uses: actions/checkout@v2
+
+            -   name: Prepare db
+                run: |
+                    ls ${{env.resource-directory}} \
+                    && ls ${{env.working-directory}}
