@@ -22,8 +22,8 @@ jobs:
             mysql:
                 image: mysql:8.0.27
                 env:
-                    MYSQL_DATABASE: ${{env.db_name}}
-                    MYSQL_ROOT_PASSWORD: ${{env.db_password}}
+                    MYSQL_DATABASE: ${{ env.db_name }}
+                    MYSQL_ROOT_PASSWORD: ${{ env.db_password }}
                 ports:
                     - 3306:3306
                 options: >-
@@ -37,16 +37,16 @@ jobs:
 
             -   name: Prepare db
                 run: |
-                    mysql --host=127.0.0.1 --user=root --password=${{env.db_password}} ${{env.db_name}} < ${{env.resource-dump}}
+                    mysql --host=127.0.0.1 --user=root --password=${{ env.db_password }} ${{ env.db_name }} < ${{ env.resource-dump }}
 
             -   name: Generate Correction
                 run: |
                     echo "${{ vars.BDD_MYSQL_QUEST_5_RESULT }}" > correction.sql \
-                    && mysql --host=127.0.0.1 --user=root --password=${{env.db_password}} ${{ env.db_name }} < correction.sql > correction.txt
+                    && mysql --host=127.0.0.1 --user=root --password=${{ env.db_password }} ${{ env.db_name }} < correction.sql > correction.txt
 
             -   name: Generate Answer
                 run: |
-                    mysql --host=127.0.0.1 --user=root --password=${{env.db_password}} ${{ env.db_name }} < ${{ env.working-directory }}/quest-5.sql > answer.txt
+                    mysql --host=127.0.0.1 --user=root --password=${{ env.db_password }} ${{ env.db_name }} < ${{ env.working-directory }}/quest-5.sql > answer.txt
 
             -   name: Validate Answer
                 run: |
