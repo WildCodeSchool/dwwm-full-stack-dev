@@ -3,30 +3,83 @@ name: Bdd MYSQL Quest 5
 on:
     push:
         paths:
-          - "src/bdd/mysql/quest-05/**"
-        #   - "src/bdd/mysql/quest-05/*.sql"
+          - "src/Bdd/Mysql/Quest-5/**"
+    pull_request:
+        types: [opened, synchronize, reopened, ready_for_review]
+        paths:
+          - "src/Bdd/Mysql/Quest-5/**"
 
 jobs:
-    test:
+    check-files:
         runs-on: ubuntu-latest
+        steps:
+            -   uses: actions/checkout@v3
+                if: github.event_name != 'pull_request'
+                with:
+                    fetch-depth: 0
+
+            -   uses: actions/checkout@v3
+                if: github.event_name == 'pull_request'
+
+            -   name: Get changed files
+                id: changed-files
+                uses: tj-actions/changed-files@v35
+
+            -   name: List all changed files
+                run: |
+                    excluded_files='src/Bdd/Mysql/Quest-5/quest-5.sql'
+
+                    invalid_files=()
+
+                    for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
+                        if [[ ! $file =~ $excluded_files ]]; then
+                            invalid_files+=("$file")
+                        fi
+                    done
+
+                    if [[ ${#invalid_files[@]} -ne 0 ]]; then
+                        echo "Des fichiers autres que src/Bdd/Mysql/Quest-5/quest-5.sql ont été ajoutés ou modifiés dans la pull request :"
+
+                        for file in invalid_files; do
+                            echo "$file was changed"
+                        done
+
+                        exit 1
+                    fi
+    validation:
+        runs-on: ubuntu-latest
+        needs: check-files
 
         env:
-            resource-directory: ./Resource/bdd/mysql
-            working-directory: ./src/bdd/mysql/quest-05
+            resource-dump: ./resources/Bdd/Mysql/dump_quete_519_finie.sql
+            working-directory: ./src/Bdd/Mysql/Quest-5
+            db_name: wild_db_quest
+            db_password: db_password
         services:
             mysql:
                 image: mysql:8.0.27
                 env:
-                    MYSQL_DATABASE: wild_db_quest
-                    MYSQL_ROOT_PASSWORD: db_password
+                    MYSQL_DATABASE: ${{ env.db_name }}
+                    MYSQL_ROOT_PASSWORD: ${{ env.db_password }}
                 ports:
                     - 3306:3306
-                options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
+                options: >-
+                    --health-cmd="mysqladmin ping"
+                    --health-interval=10s
+                    --health-timeout=5s
+                    --health-retries=3
         steps:
             -   name: Checkout
                 uses: actions/checkout@v2
 
             -   name: Prepare db
-                run: |
-                    ls ${{env.resource-directory}} \
-                    && ls ${{env.working-directory}}
+                run: mysql --host=127.0.0.1 --user=root --password=${{ env.db_password }} ${{ env.db_name }} < ${{ env.resource-dump }}
+
+            -   name: Generate Correction
+                run: mysql --host=127.0.0.1 --user=root --password=${{ env.db_password }} -e "${{ secrets.BDD_MYSQL_QUEST_5_RESULT }}" ${{ env.db_name }} > correction.txt
+
+            -   name: Generate Answer
+                run: mysql --host=127.0.0.1 --user=root --password=${{ env.db_password }} ${{ env.db_name }} < ${{ env.working-directory }}/quest-5.sql > answer.txt
+
+            -   name: Validate Answer
+                run: diff correction.txt answer.txt
