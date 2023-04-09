@@ -10,6 +10,39 @@ on:
           - "src/bdd/mysql/quest-05/**"
 
 jobs:
+    check-files:
+        runs-on: ubuntu-latest
+        steps:
+            -   name: Checkout
+                uses: actions/checkout@v2
+                with:
+                    ref: ${{ github.head_ref }}
+
+            -   name: Recherche des fichiers non autorisés dans la PR
+                if: github.event_name == 'pull_request'
+                run: |
+                    set -e
+                    non_authorized_files=($(git diff --name-only HEAD $(echo ${{ github.event.pull_request.base.sha }}) | grep -v 'src/bdd/mysql/quest-05/quest-5.sql' || true))
+                    if [ ${#non_authorized_files[@]} -ne 0 ]; then
+                        echo "La pull request contient des fichiers non autorisés :"
+                        for file in "${non_authorized_files[@]}"; do
+                            echo "- $file"
+                        done
+                        exit 1
+                    fi
+
+            -   name: Recherche des fichiers non autorisés dans le Commit
+                if: github.event_name != 'pull_request'
+                run: |
+                    set -e
+                    non_authorized_files=($(git diff --name-only ${{ github.event.before }} ${{ github.sha }} | grep -qvE '^src/bdd/mysql/quest-05/quest-5.sql$' || true))
+                    if [ ${#non_authorized_files[@]} -ne 0 ]; then
+                        echo "ERREUR : les modifications doivent être apportées uniquement à 'src/bdd/mysql/quest-05/quest-5.sql'"
+                        for file in "${non_authorized_files[@]}"; do
+                            echo "- $file"
+                        done
+                        exit 1
+                    fi
     validation:
         runs-on: ubuntu-latest
 
@@ -41,8 +74,7 @@ jobs:
 
             -   name: Generate Correction
                 run: |
-                    echo "${{ vars.BDD_MYSQL_QUEST_5_RESULT }}" > correction.sql \
-                    && mysql --host=127.0.0.1 --user=root --password=${{ env.db_password }} ${{ env.db_name }} < correction.sql > correction.txt
+                    mysql --host=127.0.0.1 --user=root --password=${{ env.db_password }} -e "${{ secrets.BDD_MYSQL_QUEST_5_RESULT }}" ${{ env.db_name }} > correction.txt
 
             -   name: Generate Answer
                 run: |
