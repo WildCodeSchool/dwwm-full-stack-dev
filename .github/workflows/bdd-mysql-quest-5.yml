@@ -4,29 +4,50 @@ on:
     push:
         paths:
           - "src/bdd/mysql/quest-05/**"
-        #   - "src/bdd/mysql/quest-05/*.sql"
+    pull_request:
+        types: [opened, synchronize, reopened, ready_for_review]
+        paths:
+          - "src/bdd/mysql/quest-05/**"
 
 jobs:
     test:
         runs-on: ubuntu-latest
 
         env:
-            resource-directory: ./Resource/bdd/mysql
+            resource-dump: ./Resource/bdd/mysql/dump_quete_519_finie.sql
             working-directory: ./src/bdd/mysql/quest-05
+            db_name: wild_db_quest
+            db_password: db_password
         services:
             mysql:
                 image: mysql:8.0.27
                 env:
-                    MYSQL_DATABASE: wild_db_quest
-                    MYSQL_ROOT_PASSWORD: db_password
+                    MYSQL_DATABASE: ${{env.db_name}}
+                    MYSQL_ROOT_PASSWORD: ${{env.db_password}}
                 ports:
                     - 3306:3306
-                options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
+                options: >-
+                    --health-cmd="mysqladmin ping"
+                    --health-interval=10s
+                    --health-timeout=5s
+                    --health-retries=3
         steps:
             -   name: Checkout
                 uses: actions/checkout@v2
 
             -   name: Prepare db
                 run: |
-                    ls ${{env.resource-directory}} \
-                    && ls ${{env.working-directory}}
+                    mysql --host=127.0.0.1 --user=root --password=${{env.db_password}} ${{env.db_name}} < ${{env.resource-dump}}
+
+            -   name: Generate Correction
+                run: |
+                    echo "${{ vars.BDD_MYSQL_QUEST_5_RESULT }}" > correction.sql \
+                    && mysql --host=127.0.0.1 --user=root --password=${{env.db_password}} ${{ env.db_name }} < correction.sql > correction.txt
+
+            -   name: Generate Answer
+                run: |
+                    mysql --host=127.0.0.1 --user=root --password=${{env.db_password}} ${{ env.db_name }} < ${{ env.working-directory }}/quest-5.sql > answer.txt
+
+            -   name: Validate Answer
+                run: |
+                    diff correction.txt answer.txt
