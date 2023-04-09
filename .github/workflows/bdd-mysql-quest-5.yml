@@ -10,7 +10,7 @@ on:
           - "src/bdd/mysql/quest-05/**"
 
 jobs:
-    test:
+    validation:
         runs-on: ubuntu-latest
 
         env:
