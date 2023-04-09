@@ -77,8 +77,7 @@ jobs:
 
             -   name: Generate Correction
                 run: |
-                    echo "${{ vars.BDD_MYSQL_QUEST_6_RESULT }}" > correction.sql
-                    mysql --host=127.0.0.1 --user=root --password=${{ env.db_password }} ${{ env.db_name }} < correction.sql > correction.txt
+                    mysql --host=127.0.0.1 --user=root --password=${{ env.db_password }} -e "${{ secrets.BDD_MYSQL_QUEST_6_RESULT }}" ${{ env.db_name }} > correction.txt
 
             -   name: Generate Answer
                 run: |
