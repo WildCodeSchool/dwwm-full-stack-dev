@@ -3,13 +3,11 @@ name: Bdd MYSQL Quest 6
 on:
     push:
         paths:
-          - "src/bdd/mysql/quest-06/quest-6.sql"
-          - "**"
+          - "src/bdd/mysql/quest-06/**"
     pull_request:
         types: [opened, synchronize, reopened, ready_for_review]
         paths:
-          - "src/bdd/mysql/quest-06/quest-6.sql"
-          - "**"
+          - "src/bdd/mysql/quest-06/**"
 
 jobs:
     check-files:
