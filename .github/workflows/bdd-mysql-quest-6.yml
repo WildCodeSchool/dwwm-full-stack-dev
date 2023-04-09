@@ -18,7 +18,7 @@ jobs:
                 with:
                     ref: ${{ github.head_ref }}
 
-            -   name: Recherche des fichiers non autorisés
+            -   name: Recherche des fichiers non autorisés dans la PR
                 if: github.event_name == 'pull_request'
                 run: |
                     set -e
@@ -31,7 +31,7 @@ jobs:
                         exit 1
                     fi
 
-            -   name: Recherche des fichiers non autorisés
+            -   name: Recherche des fichiers non autorisés dans le Commit
                 if: github.event_name != 'pull_request'
                 run: |
                     set -e
