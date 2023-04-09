@@ -1,0 +1,12 @@
+version: "3.9"
+
+# Production environment override
+services:
+  mysql-quest-database:
+    image: mysql
+    ports:
+      - "3306:3306"
+    restart: always
+    environment:
+      - MYSQL_DATABASE=wild_db_quest
+      - MYSQL_ROOT_PASSWORD=db_password
