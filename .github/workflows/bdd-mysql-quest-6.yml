@@ -57,38 +57,19 @@ jobs:
             -   name: Checkout
                 uses: actions/checkout@v2
 
-            -   name: Recherche des fichiers non autorisés dans la PR
-                if: github.event_name == 'pull_request'
-                id: diff
-                run: |
-                    echo "${{ github.event.before }}"
-                    echo "${{ github.event.after }}"
-                    echo $GITHUB_SHA
-                    echo "${{ github.event.pull_request.base.sha }}"
-                    echo "::set-output name=diff::$(git --no-pager diff --name-only HEAD $(git merge-base HEAD ${{ github.event.pull_request.base.sha }}))"
-
-            -   name: Affichage des fichiers modifiés
-                if: github.event_name == 'pull_request'
-                run: |
-                    echo "Les fichiers modifiés sont :"
-                    echo "${{ steps.diff.outputs.diff }}"
-
-            -   name: Vérification des fichiers
-                if: github.event_name == 'pull_request'
-                run: |
-                    if [[ $(git diff --name-only HEAD $(git merge-base HEAD ${{ github.event.pull_request.base.sha }})) =~ ^(?!src/bdd/mysql/Quest-6/quest-6.sql).* ]]; then
-                        echo "Erreur : des fichiers autres que 'src/bdd/mysql/Quest-6/quest-6.sql' ont été ajoutés ou modifiés dans la pull request."
-                        exit 1
-                    fi
-
             -   name: Prepare db
-                run: mysql --host=127.0.0.1 --user=root --password=${{ env.db_password }} ${{ env.db_name }} < ${{ env.resource-dump }}
+                run: |
+                    mysql --host=127.0.0.1 --user=root --password=${{ env.db_password }} ${{ env.db_name }} < ${{ env.resource-dump }}
 
             -   name: Generate Correction
-                run: mysql --host=127.0.0.1 --user=root --password=${{ env.db_password }} -e "${{ secrets.BDD_MYSQL_QUEST_6_RESULT }}" ${{ env.db_name }} > correction.txt
+                run: |
+                    echo "${{ vars.BDD_MYSQL_QUEST_6_RESULT }}" > correction.sql
+                    mysql --host=127.0.0.1 --user=root --password=${{ env.db_password }} ${{ env.db_name }} < correction.sql > correction.txt
 
             -   name: Generate Answer
-                run: mysql --host=127.0.0.1 --user=root --password=${{ env.db_password }} ${{ env.db_name }} < ${{ env.working-directory }}/quest-6.sql > answer.txt
+                run: |
+                    mysql --host=127.0.0.1 --user=root --password=${{ env.db_password }} ${{ env.db_name }} < ${{ env.working-directory }}/quest-6.sql > answer.txt
 
             -   name: Validate Answer
-                run: diff correction.txt answer.txt
+                run: |
+                    diff correction.txt answer.txt
