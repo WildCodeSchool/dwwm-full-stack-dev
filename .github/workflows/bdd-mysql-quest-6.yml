@@ -46,7 +46,7 @@ jobs:
                         exit 1
                     fi
 
-    test:
+    validation:
         runs-on: ubuntu-latest
 
         env:
