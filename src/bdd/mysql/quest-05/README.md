@@ -4,9 +4,9 @@
 
 Tout d’abord, jeune sorcier, si tu n’as jamais eu l’occasion de voir des joueurs voler après un vif d’or sur leur balai Nimbus 2001 flambant neuf, regarde par [ici](https://fr.wikipedia.org/wiki/Quidditch) (tu en apprends des choses à la Wild !)
 
-- Modifie la table `wizard` afin qu’elle corresponde exactement au schéma ci-dessous, et vide là également de tout contenu (TRUNCATE ou DELETE). Tu peux récupérer [ce fichier SQL](https://raw.githubusercontent.com/WildCodeSchool/data-training-resources/main/quests/sql/dump_quete_485_finie.sql) si tu n'as plus les tables des quêtes précédentes.
+- Modifie la table `wizard` afin qu’elle corresponde exactement au schéma ci-dessous, et vide là également de tout contenu (TRUNCATE ou DELETE). Tu peux récupérer [ce fichier SQL](../../../../Resource/bdd/mysql/dump_quete_485_finie.sql) si tu n'as plus les tables des quêtes précédentes.
 - Crée les tables `player` et `team` comme indiquées sur la modélisation ci-dessous (noms et types des champs), en prenant soin de déclarer correctement les clés étrangères.
-- Charge ensuite dans ta BDD [ce fichier SQL](https://raw.githubusercontent.com/WildCodeSchool/data-training-resources/main/quests/sql/dump_quete_485_finie.sql) et vérifie que tout s’est bien passé. Nous n'avons pas forcément respecté les vrais rôles des joueurs dans les livres, vérifie juste que tes requêtes renvoient bien les informations stockées en base de données.
+- Charge ensuite dans ta BDD [ce fichier SQL](../../../../Resource/bdd/mysql/db5.sql) et vérifie que tout s’est bien passé. Nous n'avons pas forcément respecté les vrais rôles des joueurs dans les livres, vérifie juste que tes requêtes renvoient bien les informations stockées en base de données.
 
 ![image](https://images.innoveduc.fr/bdd/advanced/quidditch.png)
 
@@ -17,5 +17,5 @@ Une fois ces données correctement chargées, écris les requêtes suivantes, et
 3. Retourne la liste de tous les sorciers qui ne pratiquent pas le quidditch.
 
 ####Critères de validation
-- La solution contient bien les 3 requêtes.
+- Un fichier `quest-5.sql` contenant les 3 requêtes.
 - Lorsque tu testes les requêtes (sur le jeu de données fourni), les résultats de chaque requête sont corrects (fais attention aux champs retournés et au tri des résultats pour qu’ils correspondent précisément aux critères demandés).
