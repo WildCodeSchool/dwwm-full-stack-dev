@@ -59,6 +59,39 @@ jobs:
             -   name: Checkout
                 uses: actions/checkout@v2
 
+            -   name: Recherche des fichiers non autorisés dans la PR
+                if: github.event_name == 'pull_request'
+                run: |
+                    files=$(git diff --name-only HEAD $(git merge-base HEAD ${{ github.event.pull_request.base.sha }}))
+                    excluded_files='src/bdd/mysql/quest-06/quest-6.sql'
+
+                    invalid_files=()
+
+                    for file in $files; do
+                        if [[ ! $file =~ $excluded_files ]]; then
+                            invalid_files+=("$file")
+                        fi
+                    done
+
+                    if [[ ${#invalid_files[@]} -ne 0 ]]; then
+                        echo "Des fichiers autres que src/bdd/mysql/quest-06/quest-6.sql ont été ajoutés ou modifiés dans la pull request :"
+                        printf '%s\n' "${invalid_files[@]}"
+                        exit 1
+                    fi
+
+            -   name: Recherche des fichiers non autorisés dans le Commit
+                if: github.event_name != 'pull_request'
+                run: |
+                    set -e
+                    non_authorized_files=($(git diff --name-only ${{ github.event.before }} ${{ github.sha }} | grep -qvE '^src/bdd/mysql/quest-06/quest-6.sql$' || true))
+                    if [ ${#non_authorized_files[@]} -ne 0 ]; then
+                        echo "ERREUR : les modifications doivent être apportées uniquement à 'src/bdd/mysql/quest-06/quest-6.sql'"
+                        for file in "${non_authorized_files[@]}"; do
+                            echo "- $file"
+                        done
+                        exit 1
+                    fi
+
             -   name: Prepare db
                 run: |
                     mysql --host=127.0.0.1 --user=root --password=${{ env.db_password }} ${{ env.db_name }} < ${{ env.resource-dump }}
