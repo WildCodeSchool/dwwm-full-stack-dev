@@ -61,49 +61,31 @@ jobs:
 
             -   name: Recherche des fichiers non autorisés dans la PR
                 if: github.event_name == 'pull_request'
+                id: diff
+                run: echo "::set-output name=diff::$(git --no-pager diff --name-only HEAD $(git merge-base HEAD ${{ github.event.pull_request.base.sha }}))"
+
+            -   name: Affichage des fichiers modifiés
+                if: github.event_name == 'pull_request'
                 run: |
-                    files=$(git diff --name-only HEAD $(git merge-base HEAD ${{ github.event.pull_request.base.sha }}))
-                    excluded_files='src/bdd/mysql/quest-06/quest-6.sql'
+                    echo "Les fichiers modifiés sont :"
+                    echo "${{ steps.diff.outputs.diff }}"
 
-                    invalid_files=()
-
-                    for file in $files; do
-                        if [[ ! $file =~ $excluded_files ]]; then
-                            invalid_files+=("$file")
-                        fi
-                    done
-
-                    if [[ ${#invalid_files[@]} -ne 0 ]]; then
-                        echo "Des fichiers autres que src/bdd/mysql/quest-06/quest-6.sql ont été ajoutés ou modifiés dans la pull request :"
-                        printf '%s\n' "${invalid_files[@]}"
-                        exit 1
-                    fi
-
-            -   name: Recherche des fichiers non autorisés dans le Commit
-                if: github.event_name != 'pull_request'
+            -   name: Vérification des fichiers
+                if: github.event_name == 'pull_request'
                 run: |
-                    set -e
-                    non_authorized_files=($(git diff --name-only ${{ github.event.before }} ${{ github.sha }} | grep -qvE '^src/bdd/mysql/quest-06/quest-6.sql$' || true))
-                    if [ ${#non_authorized_files[@]} -ne 0 ]; then
-                        echo "ERREUR : les modifications doivent être apportées uniquement à 'src/bdd/mysql/quest-06/quest-6.sql'"
-                        for file in "${non_authorized_files[@]}"; do
-                            echo "- $file"
-                        done
+                    if [[ $(git diff --name-only HEAD $(git merge-base HEAD ${{ github.event.pull_request.base.sha }})) =~ ^(?!src/bdd/mysql/quest-06/quest-6.sql).* ]]; then
+                        echo "Erreur : des fichiers autres que 'src/bdd/mysql/quest-06/quest-6.sql' ont été ajoutés ou modifiés dans la pull request."
                         exit 1
                     fi
 
             -   name: Prepare db
-                run: |
-                    mysql --host=127.0.0.1 --user=root --password=${{ env.db_password }} ${{ env.db_name }} < ${{ env.resource-dump }}
+                run: mysql --host=127.0.0.1 --user=root --password=${{ env.db_password }} ${{ env.db_name }} < ${{ env.resource-dump }}
 
             -   name: Generate Correction
-                run: |
-                    mysql --host=127.0.0.1 --user=root --password=${{ env.db_password }} -e "${{ secrets.BDD_MYSQL_QUEST_6_RESULT }}" ${{ env.db_name }} > correction.txt
+                run: mysql --host=127.0.0.1 --user=root --password=${{ env.db_password }} -e "${{ secrets.BDD_MYSQL_QUEST_6_RESULT }}" ${{ env.db_name }} > correction.txt
 
             -   name: Generate Answer
-                run: |
-                    mysql --host=127.0.0.1 --user=root --password=${{ env.db_password }} ${{ env.db_name }} < ${{ env.working-directory }}/quest-6.sql > answer.txt
+                run: mysql --host=127.0.0.1 --user=root --password=${{ env.db_password }} ${{ env.db_name }} < ${{ env.working-directory }}/quest-6.sql > answer.txt
 
             -   name: Validate Answer
-                run: |
-                    diff correction.txt answer.txt
+                run: diff correction.txt answer.txt
