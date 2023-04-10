@@ -60,7 +60,12 @@ jobs:
             -   name: Recherche des fichiers non autorisés dans la PR
                 if: github.event_name == 'pull_request'
                 id: diff
-                run: echo "::set-output name=diff::$(git --no-pager diff --name-only HEAD $(git merge-base HEAD ${{ github.event.pull_request.base.sha }}))"
+                run: |
+                    echo "${{ github.event.before }}"
+                    echo "${{ github.event.after }}"
+                    echo $GITHUB_SHA
+                    echo "${{ github.event.pull_request.base.sha }}"
+                    echo "::set-output name=diff::$(git --no-pager diff --name-only HEAD $(git merge-base HEAD ${{ github.event.pull_request.base.sha }}))"
 
             -   name: Affichage des fichiers modifiés
                 if: github.event_name == 'pull_request'
