@@ -3,11 +3,11 @@ name: Bdd MYSQL Quest 6
 on:
     push:
         paths:
-          - "src/bdd/mysql/quest-06/**"
+          - "src/Bdd/Mysql/quest-06/**"
     pull_request:
         types: [opened, synchronize, reopened, ready_for_review]
         paths:
-          - "src/bdd/mysql/quest-06/**"
+          - "src/Bdd/Mysql/quest-06/**"
 
 jobs:
     check-files:
@@ -15,41 +15,31 @@ jobs:
         steps:
             -   name: Checkout
                 uses: actions/checkout@v2
-                with:
-                    ref: ${{ github.head_ref }}
 
-            -   name: Recherche des fichiers non autorisés dans la PR
-                if: github.event_name == 'pull_request'
-                run: |
-                    set -e
-                    non_authorized_files=($(git diff --name-only HEAD $(echo ${{ github.event.pull_request.base.sha }}) | grep -v 'src/bdd/mysql/quest-06/quest-6.sql' || true))
-                    if [ ${#non_authorized_files[@]} -ne 0 ]; then
-                        echo "La pull request contient des fichiers non autorisés :"
-                        for file in "${non_authorized_files[@]}"; do
-                            echo "- $file"
-                        done
-                        exit 1
-                    fi
+            -   id: files
+                uses: jitterbit/get-changed-files@v1
 
-            -   name: Recherche des fichiers non autorisés dans le Commit
-                if: github.event_name != 'pull_request'
+            -   name: Printing
                 run: |
-                    set -e
-                    non_authorized_files=($(git diff --name-only ${{ github.event.before }} ${{ github.sha }} | grep -qvE '^src/bdd/mysql/quest-06/quest-6.sql$' || true))
-                    if [ ${#non_authorized_files[@]} -ne 0 ]; then
-                        echo "ERREUR : les modifications doivent être apportées uniquement à 'src/bdd/mysql/quest-06/quest-6.sql'"
-                        for file in "${non_authorized_files[@]}"; do
-                            echo "- $file"
-                        done
-                        exit 1
-                    fi
+                    echo "All:"
+                    echo "${{ steps.abc.outputs.all }}"
+                    echo "Added:"
+                    echo "${{ steps.abc.outputs.added }}"
+                    echo "Removed:"
+                    echo "${{ steps.abc.outputs.removed }}"
+                    echo "Renamed:"
+                    echo "${{ steps.abc.outputs.renamed }}"
+                    echo "Modified:"
+                    echo "${{ steps.abc.outputs.modified }}"
+                    echo "Added+Modified:"
+                    echo "${{ steps.abc.outputs.added_modified }}"
 
     validation:
         runs-on: ubuntu-latest
 
         env:
-            resource-dump: ./Resource/bdd/mysql/dump_quete_519_finie.sql
-            working-directory: ./src/bdd/mysql/quest-06
+            resource-dump: ./resources/Bdd/Mysql/dump_quete_519_finie.sql
+            working-directory: ./src/Bdd/Mysql/quest-06
             db_name: wild_db_quest
             db_password: db_password
         services:
