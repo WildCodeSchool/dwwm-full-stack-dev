@@ -1,3 +1,4 @@
+@@ -1,21 +0,0 @@
 # Tournoi de quidditch
 
 ![image](https://images.innoveduc.fr/bdd/advanced/quidditch.gif)
