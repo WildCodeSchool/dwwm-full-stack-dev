@@ -1,8 +1,8 @@
-#Tournoi de quidditch, suite
+# Tournoi de quidditch, suite
 
 ![image](https://images.innoveduc.fr/bdd/advanced/quidditch2.gif)
 
-Le tournoi de quidditch continue. Tu vas te baser sur les mêmes données que la quête précédente sur les jointures (pour rappel, le schéma des tables apparaît ci-dessous, et les données sont [ici](../../../../Resource/bdd/mysql/db5.sql))
+Le tournoi de quidditch continue. Tu vas te baser sur les mêmes données que la quête précédente sur les jointures (pour rappel, le schéma des tables apparaît ci-dessous, et les données sont [ici](../../../../resources/Bdd/Mysql/db5.sql))
 
 ![image](https://images.innoveduc.fr/bdd/advanced/quidditch.png)
 
@@ -12,8 +12,8 @@ Le tournoi de quidditch continue. Tu vas te baser sur les mêmes données que la
 2. Retourne uniquement les noms des équipes complètes (ayant 14 joueurs ou plus, c’est-à- dire 7 joueurs et 7 remplaçants minimum), classés par ordre alphabétique.
 3. L’entraîneur des Gryffindor est superstitieux, son jour préféré est le lundi. Retourne la liste des joueurs de son équipe qui ont été enrôlés un lundi (il souhaite les faire jouer en priorité), et classe les résultats par date d’enrôlement chronologique.
 
-> Tu peux récupérer [ce fichier SQL](../../../../Resource/bdd/mysql/dump_quete_519_finie.sql) si tu n'as plus les tables des quêtes précédentes.
+> Tu peux récupérer [ce fichier SQL](../../../../resources/Bdd/Mysql/dump_quete_519_finie.sql) si tu n'as plus les tables des quêtes précédentes.
 
-####Critères de validation
+#### Critères de validation
 - Un fichier `quest-6.sql` contenant les 3 requêtes.
 - Lorsque tu testes les requêtes (sur le jeu de données fourni), les résultats de chaque requête sont corrects (fais attention aux champs retournés et au tri des résultats pour qu’ils correspondent précisément aux critères demandés).
