@@ -22,7 +22,7 @@ jobs:
                 if: github.event_name == 'pull_request'
                 run: |
                     set -e
-                    non_authorized_files=($(git diff --name-only HEAD $(echo ${{ github.event.pull_request.base.sha }}) | grep -v 'src/Bdd/Mysql/quest-05/quest-5.sql' || true))
+                    non_authorized_files=($(git diff --name-only HEAD $(echo ${{ github.event.pull_request.base.sha }}) | grep -v 'src/Bdd/Mysql/Quest-5/quest-5.sql' || true))
                     if [ ${#non_authorized_files[@]} -ne 0 ]; then
                         echo "La pull request contient des fichiers non autorisés :"
                         for file in "${non_authorized_files[@]}"; do
@@ -35,9 +35,9 @@ jobs:
                 if: github.event_name != 'pull_request'
                 run: |
                     set -e
-                    non_authorized_files=($(git diff --name-only ${{ github.event.before }} ${{ github.sha }} | grep -qvE '^src/Bdd/Mysql/quest-05/quest-5.sql$' || true))
+                    non_authorized_files=($(git diff --name-only ${{ github.event.before }} ${{ github.sha }} | grep -qvE '^src/Bdd/Mysql/Quest-5/quest-5.sql$' || true))
                     if [ ${#non_authorized_files[@]} -ne 0 ]; then
-                        echo "ERREUR : les modifications doivent être apportées uniquement à 'src/Bdd/Mysql/quest-05/quest-5.sql'"
+                        echo "ERREUR : les modifications doivent être apportées uniquement à 'src/Bdd/Mysql/Quest-5/quest-5.sql'"
                         for file in "${non_authorized_files[@]}"; do
                             echo "- $file"
                         done
