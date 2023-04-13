@@ -1,3 +1,4 @@
+@@ -1,19 +0,0 @@
 # Tournoi de quidditch, suite
 
 ![image](https://images.innoveduc.fr/bdd/advanced/quidditch2.gif)
