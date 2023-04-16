@@ -1,0 +1,9 @@
+artifacts/
+coverage/
+var/
+vendor/
+
+.phpunit.result.cache
+**/.DS_Store
+.vscode
+**/cook.txt
