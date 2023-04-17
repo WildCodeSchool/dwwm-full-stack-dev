@@ -1,4 +1,3 @@
-@@ -1,21 +0,0 @@
 # Première base de données
 
 - Dans un fichier `quest-1_1.sql`
