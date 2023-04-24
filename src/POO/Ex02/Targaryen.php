@@ -9,8 +9,9 @@ class Targaryen
     public function getBurned(): string
     {
         if ($this instanceof Daenerys) {
-            return "emerges naked but unharmed";
+            return 'emerges naked but unharmed';
         }
-        return "burns alive"; 
+
+        return 'burns alive';
     }
 }
