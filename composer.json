@@ -26,7 +26,7 @@
         "php-cs-fixer": "./vendor/bin/php-cs-fixer fix --using-cache=no --verbose",
         "refresh-containers": "docker compose down --remove-orphans --rmi local -v && docker compose build --pull && docker compose up -d --remove-orphans",
         "test": "@test-locally --coverage-text --colors=never",
-        "test-locally": "XDEBUG_MODE=coverage php vendor/bin/phpunit --testdox --do-not-cache-result",
+        "test-locally": "php vendor/bin/phpunit --testdox --do-not-cache-result",
         "test-locally-les-bases": "@test-locally --testsuite les_bases",
         "test-locally-poo": "@test-locally --testsuite poo"
     }
