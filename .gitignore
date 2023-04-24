@@ -7,3 +7,4 @@ vendor/
 **/.DS_Store
 .vscode
 **/cook.txt
+composer.json
