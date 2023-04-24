@@ -1,21 +1,13 @@
 <?php
 
-namespace App\POO\Ex00;
+namespace App\POO\Ex04;
 
+use App\POO\Ex00\Tyrion;
 use App\Resources\Classes\Lannister\Lannister;
 
-class Tyrion extends Lannister
+class Jaime extends Lannister
 {
-    public const SIZE = 'Short';
-    public function __construct(bool $announce = true)
-    {
-        parent::__construct($announce);
-        if ($announce) {
-            echo "My name is Tyrion\n";
-        }
-    }
-
-    private bool $incest = false;
+    private bool $incest = true;
 
     public function sleepWith($target): void
     {
