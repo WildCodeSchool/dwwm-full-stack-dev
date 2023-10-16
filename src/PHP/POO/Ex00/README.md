@@ -7,7 +7,7 @@ Créez la [classe](https://www.php.net/manual/fr/language.oop5.php) Tyrion, [hé
 Il doit être possible de modifier les chaînes dans `Lannister.php` et que les modifications se répercutent sur la sortie sans modifier la classe Tyrion.
 
 ```bash
-$> php resources/Tests/testEx00.php
+$> php resources/PHP/Tests/testEx00.php
 A Lannister is born !
 My name is Tyrion
 Short

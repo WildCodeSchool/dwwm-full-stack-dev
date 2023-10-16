@@ -6,7 +6,7 @@ Les grandes maisons de [Westeros](https://gameofthrones.fandom.com/fr/wiki/Weste
 Écrivez la [classe](https://www.php.net/manual/fr/language.oop5.abstract.php) House telle que le fichier [testEx03-1.php](../../../../resources/PHP/Tests/testEx03-1.php) qui vous est fourni en annexe produise la sortie ci-dessous :
 
 ```bash
-$> php resources/Tests/testEx03-1.php
+$> php resources/PHP/Tests/testEx03-1.php
 House Stark of Winterfell : "Winter is coming"
 House Martell of Sunspear : "Unbowed, Unbent, Unbroken"
 $>

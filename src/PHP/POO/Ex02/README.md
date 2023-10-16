@@ -8,7 +8,7 @@ Sauf, apparemment, une ...
 Écrivez la classe Targaryen telle que le fichier [testEx02.php](../../../../resources/PHP/Tests/testEx02.php) en annexe produise la sortie suivante :
 
 ```bash
-$> php resources/Tests/testEx02.php
+$> php resources/PHP/Tests/testEx02.php
 Viserys burns alive
 Daenerys emerges naked but unharmed
 $>

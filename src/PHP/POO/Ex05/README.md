@@ -10,7 +10,7 @@ Par contre, cela n’aurait aucun sens de tenter d’utiliser au combat des gens
 Vous devez écrire [l’interface](https://www.php.net/manual/fr/language.oop5.interfaces.php) IFighter, ainsi que la classe NightsWatch, telles que le fichier [testEx05-1.php](../../../../resources/PHP/Tests/testEx05-1.php) qui vous est fourni en annexe produise la sortie ci-dessous :
 
 ```bash
-$> php resources/Tests/testEx05-1.php
+$> php resources/PHP/Tests/testEx05-1.php
 * looses his wolf on the enemy, and charges with courage *
 * flees, finds a girl, grows a spine, and defends her to the bitter end *
 $>

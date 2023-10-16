@@ -7,7 +7,7 @@ Tout l'inverse de son "petit" frère [Tyrion](https://gameofthrones.fandom.com/f
 Écrivez donc la classe Jaime et modifiez la classe [Tyrion](../Ex00/Tyrion.php) de telle sorte que le fichier [testEx04.php](../../../../resources/PHP/Tests/testEx04.php) qui vous est fourni en annexe produise la sortie ci-dessous :
 
 ```bash
-$> php resources/Tests/testEx04.php
+$> php resources/PHP/Tests/testEx04.php
 Not even if I'm drunk !
 Let's do this.
 With pleasure, but only in a tower in Winterfell, then.

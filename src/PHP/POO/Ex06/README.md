@@ -9,7 +9,7 @@ De telles circonstances peuvent pousser les hommes à faire un marché avec des 
 Vous devez écrire les classes Fighter et UnholyFactory, telles que le fichier [testEx06-1.php](../../../../resources/PHP/Tests/testEx06-1.php) qui vous est fourni en annexe produise la sortie ci-après :
 
 ```bash
-$> php resources/Tests/testEx06-1.php
+$> php resources/PHP/Tests/testEx06-1.php
 (Factory absorbed a fighter of type foot soldier)
 (Factory already absorbed a fighter of type foot soldier)
 (Factory absorbed a fighter of type archer)

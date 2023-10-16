@@ -6,7 +6,7 @@ Chaque grande maison a une devise qui lui est propre, et il serait malopportun p
 Écrivez la classe [Greyjoy](https://gameofthrones.fandom.com/fr/wiki/Maison_Greyjoy) telle que le fichier [testEx01-1.php](../../../../resources/PHP/Tests/testEx01-1.php) qui vous est fourni en annexe produise la sortie ci-dessous :
 
 ```bash
-$> php resources/Tests/testEx01-1.php
+$> php resources/PHP/Tests/testEx01-1.php
 We do not sow
 $>
 ```
