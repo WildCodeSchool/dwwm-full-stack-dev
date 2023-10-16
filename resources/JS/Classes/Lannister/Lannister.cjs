@@ -1,7 +1,8 @@
+/* eslint-disable class-methods-use-this */
 class Lannister {
-  BIRTH_ANNOUNCEMENT = 'A Lannister is born !';
+  static BIRTH_ANNOUNCEMENT = 'A Lannister is born !';
 
-  HOUSE_MOTTO = 'Hear me roar!';
+  static HOUSE_MOTTO = 'Hear me roar!';
 
   SIZE = 'Average';
 
@@ -17,13 +18,13 @@ class Lannister {
   }
 
   getHouseMotto() {
-    return this.HOUSE_MOTTO;
+    return Lannister.HOUSE_MOTTO;
   }
 
   announceBirth() {
     if (this.needBirthAnnouncement) {
       // eslint-disable-next-line no-console
-      console.log(this.BIRTH_ANNOUNCEMENT);
+      console.log(Lannister.BIRTH_ANNOUNCEMENT);
     }
   }
 }
