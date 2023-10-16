@@ -11,13 +11,13 @@
     },
     "autoload": {
         "psr-4": {
-            "App\\": "src/",
-            "App\\Resources\\": "resources/"
+            "App\\": "src/PHP",
+            "App\\Resources\\": "resources/PHP"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "App\\Tests\\": "tests/"
+            "App\\Tests\\": "tests/PHP"
         }
     },
     "scripts": {

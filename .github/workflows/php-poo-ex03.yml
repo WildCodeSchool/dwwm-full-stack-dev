@@ -4,7 +4,7 @@ on:
     pull_request:
         types: [opened, synchronize, reopened, ready_for_review]
         paths:
-          - "src/POO/Ex03/**"
+          - "src/PHP/POO/Ex03/**"
 
 jobs:
     check-files:
@@ -18,7 +18,7 @@ jobs:
 
             -   name: List all changed files
                 run: |
-                    excluded_files="src/POO/Ex03/House.php"
+                    excluded_files="src/PHP/POO/Ex03/House.php"
 
                     invalid_files=()
 
@@ -29,7 +29,7 @@ jobs:
                     done
 
                     if [[ ${#invalid_files[@]} -ne 0 ]]; then
-                        echo "Des fichiers autres que `src/POO/Ex03/House.php` ont été ajoutés ou modifiés dans la pull request :"
+                        echo "Des fichiers autres que `src/PHP/POO/Ex03/House.php` ont été ajoutés ou modifiés dans la pull request :"
 
                         for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
                             if [[ ! $file =~ $excluded_files ]]; then

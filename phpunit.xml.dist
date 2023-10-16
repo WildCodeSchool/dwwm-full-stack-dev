@@ -21,17 +21,17 @@
 
     <testsuites>
         <testsuite name="les_bases">
-            <directory>tests/PhpLesBases</directory>
+            <directory>tests/PHP/PhpLesBases</directory>
         </testsuite>
         <testsuite name="poo">
-            <directory>tests/POO</directory>
+            <directory>tests/PHP/POO</directory>
         </testsuite>
     </testsuites>
 
     <coverage processUncoveredFiles="false" includeUncoveredFiles="false">
         <include>
-            <directory suffix=".php">resources</directory>
-            <directory suffix=".php">src</directory>
+            <directory suffix=".php">resources/PHP</directory>
+            <directory suffix=".php">src/PHP</directory>
         </include>
         <report>
             <html outputDirectory="coverage/html"

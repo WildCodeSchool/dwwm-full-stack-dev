@@ -4,7 +4,7 @@ on:
     pull_request:
         types: [opened, synchronize, reopened, ready_for_review]
         paths:
-          - "src/POO/Ex06/**"
+          - "src/PHP/POO/Ex06/**"
 
 jobs:
     check-files:
@@ -18,7 +18,7 @@ jobs:
 
             -   name: List all changed files
                 run: |
-                    excluded_files="src/POO/Ex06/(UnholyFactory|Fighter).php"
+                    excluded_files="src/PHP/POO/Ex06/(UnholyFactory|Fighter).php"
 
                     invalid_files=()
 
