@@ -4,7 +4,7 @@ const { Greyjoy } = require('../../../../src/JS/POO/Ex01/Greyjoy.cjs');
 
 class Euron extends Greyjoy {
   announceMotto() {
-    console.log(this._familyMotto);
+    console.log(Greyjoy._familyMotto);
   }
 }
 
