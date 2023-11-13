@@ -1,6 +1,5 @@
 ALTER TABLE `wizard`
 ADD `is_muggle` BOOLEAN NOT NULL;
-
 CREATE TABLE
     `wild_db_quest`.`school` (
         `id` INT NOT NULL AUTO_INCREMENT,
