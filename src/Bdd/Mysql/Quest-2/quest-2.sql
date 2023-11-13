@@ -9,7 +9,9 @@ SELECT firstname FROM wizard WHERE firstname LIKE 'h%';
 
 SELECT firstname, lastname
 FROM wizard
-WHERE lastname = 'potter'
+WHERE
+    lastname = 'potter'
+    OR is_muggle = TRUE
 ORDER BY firstname;
 
 SELECT
