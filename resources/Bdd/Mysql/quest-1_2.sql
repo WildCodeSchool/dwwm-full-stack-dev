@@ -1,0 +1,1 @@
+ALTER TABLE wizard add is_muggle BOOLEAN NOT NULL;
