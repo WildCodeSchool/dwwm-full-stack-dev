@@ -17,5 +17,5 @@ SELECT
     birthday
 FROM wizard
 WHERE birthday
-ORDER BY birthday DESC
+ORDER BY birthday ASC
 LIMIT 1;
