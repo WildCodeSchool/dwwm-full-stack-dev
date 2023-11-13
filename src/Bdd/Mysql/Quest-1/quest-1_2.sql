@@ -12,7 +12,7 @@ CREATE TABLE school (
   PRIMARY KEY (`id`)
 );
 
-SHOW TABLE;
+SHOW TABLES;
 
 DESCRIBE wizard;
 DESCRIBE school;
