@@ -7,7 +7,7 @@ WHERE
 
 SELECT firstname FROM wizard WHERE firstname LIKE 'h%';
 
-SELECT firstname
+SELECT firstname, lastname
 FROM wizard
 WHERE
     lastname = 'potter'
