@@ -4,7 +4,7 @@ CREATE TABLE school (
   id INT NOT NULL AUTO_INCREMENT,
   name VARCHAR(100) NOT NULL, 
   `capacity` INT NULL,
-  `country` VARCHAR(250) NOT NULL,
+  `country` VARCHAR(255) NOT NULL,
   PRIMARY KEY (`id`)
   );
 SHOW TABLES;
