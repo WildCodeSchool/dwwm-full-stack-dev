@@ -1,4 +1,3 @@
-
 SELECT *
 FROM wizard
 WHERE
@@ -8,8 +7,8 @@ SELECT * FROM wizard WHERE firstname LIKE 'H%';
 
 SELECT firstname, lastname
 FROM wizard
-WHERE lastname = "potter" OR lastname = "dursley"
-ORDER BY firstname ASC;
+WHERE lastname = "potter"
+ORDER BY firstname DESC;
 
 SELECT
     firstname,
