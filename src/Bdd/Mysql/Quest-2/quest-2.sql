@@ -12,7 +12,7 @@ FROM wizard
 WHERE
     lastname = 'potter'
     OR biography = 'Cousin d\'Harry'
-ORDER BY firstname DESC;
+ORDER BY firstname;
 
 SELECT
     firstname,
