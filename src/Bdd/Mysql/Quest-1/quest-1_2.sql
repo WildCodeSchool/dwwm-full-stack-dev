@@ -8,3 +8,8 @@ CREATE TABLE
         `country` VARCHAR(255) NOT NULL,
         PRIMARY KEY (`id`)
     );
+
+SHOW TABLES;
+DESCRIBE `wizard`;
+
+DESCRIBE `school`;
