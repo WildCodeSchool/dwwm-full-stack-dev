@@ -9,7 +9,7 @@ SELECT * FROM wizard WHERE firstname LIKE 'H%';
 SELECT firstname, lastname
 FROM wizard
 WHERE lastname = "potter" OR lastname = "dursley"
-ORDER BY firstname DESC;
+ORDER BY firstname ASC;
 
 SELECT
     firstname,
