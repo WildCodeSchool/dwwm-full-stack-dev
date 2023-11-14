@@ -1,6 +1,10 @@
 USE wild_db_quest;
 
-SELECT * FROM wizard WHERE 
+SELECT *
+FROM wizard
+WHERE
+    birthday BETWEEN '1975-01-01' AND '1985-01-01'
+    AND is_muggle = FALSE;
 
 SELECT firstname FROM wizard WHERE firstname LIKE 'h%';
 
