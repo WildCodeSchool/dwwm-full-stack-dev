@@ -8,7 +8,7 @@ SELECT firstname FROM wizard
 WHERE firstname LIKE "h%";
 
 SELECT firstname, lastname FROM wizard
-WHERE lastname="potter" OR is_muggle= TRUE
+WHERE lastname="potter" AND is_muggle= FALSE
 ORDER BY firstname;
 
 SELECT 
